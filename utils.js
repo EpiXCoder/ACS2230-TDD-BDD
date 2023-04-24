@@ -59,10 +59,8 @@ const addItemToCart = (item) => {
   const itemIndex = shoppingCart.findIndex(cartItem => cartItem.name === item.name);
 
   if (itemIndex !== -1) {
-    // If the item already exists, update the quantity
     shoppingCart[itemIndex].quantity += item.quantity;
   } else {
-    // If the item doesn't exist, add it to the cart
     shoppingCart.push(item);
   }
 }
@@ -84,27 +82,21 @@ const removeItemFromCart = (item) => {
   let itemName = '';
 
   if (typeof item === 'string') {
-    // If item is a string, assume it's the name of the item to be removed
     itemName = item;
   } else if (typeof item === 'object' && item.hasOwnProperty('name')) {
-    // If item is an object with a name property, use that as the item name
     itemName = item.name;
   } else {
-    // If item is not a string or an object with a name property, throw an error
     throw new Error('Invalid item to remove from cart');
   }
 
-   // Check if the item exists in the cart
    const existingItemIndex = shoppingCart.findIndex(cartItem => cartItem.name === itemName);
 
    if (existingItemIndex !== -1) {
      const existingItem = shoppingCart[existingItemIndex];
      
      if (existingItem.quantity > 1) {
-       // If the item has a quantity greater than one, subtract one from the quantity
        existingItem.quantity--;
      } else {
-       // If the item has a quantity of one, remove it from the cart
        shoppingCart.splice(existingItemIndex, 1);
      }
    }
@@ -116,8 +108,6 @@ const getCartTotal = () => {
   shoppingCart.forEach(function(item) {
     cartTotal += (item.price * item.quantity);
   });
-
-  // Return the cart total rounded to two decimal places
   return cartTotal.toFixed(2);
 }
 
